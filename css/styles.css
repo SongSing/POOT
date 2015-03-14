@@ -1,0 +1,80 @@
+html, body
+{
+	height:100%;
+	width:100%;
+}
+
+.site-wrapper
+{
+	display: table;
+	width: 100%;
+	height: 100%; /* For at least Firefox */
+	min-height: 100%;
+	background-image:url(images/indexbg.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:bottom;
+	background-color:#FFFFFF;
+}
+
+.site-content
+{
+    content: "";
+    background: rgba(0, 0, 0, 0);
+	width:100%;
+	height:100%;
+    z-index: 1;
+	/*-webkit-box-shadow: inset 0 0 200px rgba(0,0,0,.9);
+	box-shadow: inset 0 0 100px rgba(0,0,0,.9);*/
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+	color:black;
+}
+
+.front-content
+{
+	/*margin:none;
+	
+	background:rgba(255, 255, 255, 0.93);
+	padding:8px;
+	border-top:4px solid #7777FF;*/
+}
+
+.front-content h1
+{
+	background:rgba(255,255,255,1);
+	display:inline-block;
+	padding:8px 24px;
+	border:1px solid black;
+	border-bottom-width:2px;
+	border-radius:12px;
+}
+
+.btn-black
+{
+	text-shadow:none;
+	border:1px solid black;
+	border-radius:4px;
+	color:black !important;
+	margin:4px 8px;
+	background:rgba(255, 255, 255, 0.7);
+	border-bottom-width:2px;
+}
+
+.btn-black:hover
+{
+	color:#5555CC !important;
+	border-color:#5555CC;
+}
+
+.btn-black:active
+{
+	border-bottom-width:1px;
+}
+
+.animate-05
+{
+	transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+	-webkit-transition: background-color 0.5s, color 0.5s border-color 0.5s;
+}
