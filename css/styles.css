@@ -38,7 +38,9 @@ html, body
 	
 	background:rgba(255, 255, 255, 0.93);
 	padding:8px;
-	border-top:4px solid #7777FF;*/
+	border-
+	
+	top:4px solid #7777FF;*/
 }
 
 .front-content h1
@@ -77,4 +79,26 @@ html, body
 {
 	transition: background-color 0.5s, color 0.5s, border-color 0.5s;
 	-webkit-transition: background-color 0.5s, color 0.5s border-color 0.5s;
+}
+
+/* ******************** */
+
+.client-wrapper
+{
+	width: 100%;
+	height: 100%; /* For at least Firefox */
+	min-height: 100%;
+	background-image:url(images/clientbg.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-position:bottom;
+	background-color:#FFFFFF;
+}
+
+.client-content
+{
+    background: rgba(0, 0, 0, 0);
+	width:100%;
+	height:100%;
+    z-index: 1;
 }
