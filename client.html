@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/clientstyles.css">
 		
 		<script src="js/jquery-2.1.3.min.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<script src="js/utilities.js"></script>
 		<script src="js/relay.js"></script>
@@ -23,7 +24,13 @@
 					
 				</div>
 				<div class="serverInfo-container">
-				
+					<h1 id="serverName"></h1>
+					<div id="serverDescription"></div>
+					<input type="text" class="form-control si" id="serverInput-name" placeholder="Name"/>
+					<input type="text" class="form-control si" id="serverInput-color" placeholder="Color" />
+					<input type="text" class="form-control si" id="serverInput-ip" placeholder="Advanced Connection" />
+					<button class="btn btn-lg btn-danger" id="serverInput-back">Back</btn>
+					<button class="btn btn-lg btn-primary" id="serverInput-connect">Connect</btn>
 				</div>
 				<div class="client-container">
 				

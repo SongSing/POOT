@@ -22,18 +22,24 @@ html, body
 	width:100%;
 	height:100%;
 	z-index: 1;
-	overflow-y: scroll; /* has to be scroll, not auto */
-	-webkit-overflow-scrolling: touch;
+	overflow:hidden;
 }
 
 .client-content > div
 {
 	display:none;
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
 }
 
 .serverList-container
 {
 	background: rgba(0, 0, 0, 0);
+	overflow-y: scroll; /* has to be scroll, not auto */
+	-webkit-overflow-scrolling: touch;
 }
 
 .serverListItem
@@ -71,4 +77,88 @@ html, body
 .serverListItemNum:after
 {
 	content: " online";
+}
+
+#serverName
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	right:0px;
+	height:48px;
+	line-height:48px;
+	padding:0px;
+	text-align:center;
+	margin:0px;
+	background-color:rgba(255,255,255,0.7);
+}
+
+#serverDescription
+{
+	position:absolute;
+	top:48px;
+	left:0px;
+	right:0px;
+	bottom:114px;
+	background-color:rgba(255,255,255,0.9);
+	overflow-y: scroll; /* has to be scroll, not auto */
+	-webkit-overflow-scrolling: touch;
+	padding:4px;
+	border:1px solid #aaaaaa;
+	border-left:0px;
+	border-right:0px;
+}
+
+#serverInput
+{
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	right:0px;
+}
+
+.si
+{
+	border-radius:0px;
+	height:38px;
+	position:absolute;
+	left:0px;
+	right:0px;
+}
+
+#serverInput-name
+{
+	bottom:76px;
+}
+
+#serverInput-color
+{
+	bottom:38px;
+}
+
+#serverInput-ip
+{
+	bottom:0px;
+}
+
+#serverInput-connect
+{
+	position:absolute;
+	top:0px;
+	right:0px;
+	height:48px;
+	margin:0px;
+	border-radius:0px;
+	width:128px;
+}
+
+#serverInput-back
+{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:48px;
+	margin:0px;
+	border-radius:0px;
+	width:128px;
 }

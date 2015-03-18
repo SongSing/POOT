@@ -5,6 +5,9 @@ function init()
 {
 	$(".serverList-container").show(); // show this initially, the others are hidden in the css
 	relay = new Relay("server.pokemon-online.eu:10508", handleOpen, handleMessage, handleClose, handleError);
+	
+	$("#serverInput-back").click(function() { switchTo(".serverList-container", "left"); });
+	$("#serverInput-connect").click(function() { alert("no"); });
 }
 
 function handleOpen()
@@ -94,6 +97,7 @@ var commandHandlers =
 			
 			$(item).append(name);
 			$(item).append(num);
+			$(item).click(function() { itemClicked(this); });
 			items.push(item);
 		}
 		
@@ -104,5 +108,26 @@ var commandHandlers =
 	}
 };
 
+function itemClicked(item)
+{
+	var server = item.server;
+	$("#serverName").html(escapeHTML(server.name));
+	$("#serverDescription").html(server.description);
+	$("#serverInput-ip").get(0).value = server.ip;
+	
+	switchTo(".serverInfo-container", "right");
+}
 
-
+function switchTo(layer, dir)
+{
+	if (dir === undefined)
+	{
+		$(".client-content > div:visible").hide();
+		$(layer).show();
+	}
+	else
+	{
+		var o = (dir === "left" ? "right" : (dir === "up" ? "down" : (dir === "right" ? "left" : "up")));
+		$(".client-content > div:visible").hide("slide", { "direction": o }, function() { $(layer).show("slide", { "direction": dir }); });
+	}
+}
