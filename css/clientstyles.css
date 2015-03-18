@@ -83,8 +83,8 @@ html, body
 {
 	position:absolute;
 	top:0px;
-	left:0px;
-	right:0px;
+	left:72px;
+	right:72px;
 	height:48px;
 	line-height:48px;
 	font-size:18px;
@@ -93,6 +93,7 @@ html, body
 	text-align:center;
 	margin:0px;
 	background-color:rgba(255,255,255,0.8);
+	overflow:auto;
 }
 
 #serverDescription
@@ -151,7 +152,8 @@ html, body
 	height:48px;
 	margin:0px;
 	border-radius:0px;
-	width:128px;
+	width:72px;
+	font-size:16px;
 }
 
 #serverInput-back
@@ -162,5 +164,6 @@ html, body
 	height:48px;
 	margin:0px;
 	border-radius:0px;
-	width:128px;
+	width:72px;
+	font-size:16px;
 }
