@@ -8,6 +8,23 @@ function init()
 	
 	$("#serverInput-back").click(function() { switchTo(".serverList-container"); });
 	$("#serverInput-connect").click(function() { connectToServer(); });
+	
+	$(".nav-channels").click(function() { 
+		if ($(".client-channels").is(":visible"))
+		{
+			clientSwitchTo(".client-chat");
+		}
+		else
+		{
+			clientSwitchTo(".client-channels"); 
+		}
+	});
+	
+	cache.chatItems = {};
+	cache.myChannels = [];
+	cache.usersByName = {};
+	cache.usersById = {};
+	cache.channelUsers = {};
 }
 
 function connectToServer()
@@ -149,15 +166,111 @@ var commandHandlers =
 	{
 		cache.info = JSON.parse(data);
 		
-		clientSwitchTo(".client-channels");
+		clientSwitchTo(".client-chat");
 		switchTo(".client-container");
 	},
 	"channels": function(data)
 	{
 		data = JSON.parse(data);
 		
-		allChannels = data;
 		createChannelsFromJSON(data);
+		joinChannel(0);
+	},
+	"newchannel": function(data)
+	{
+		data = JSON.parse(data);
+		createChannel(data.name, data.id);
+	},
+	"removechannel": function(data) // id
+	{
+		removeChannel(data);
+	},
+	"chat": function(data)
+	{
+		data = JSON.parse(data);
+		var ts = timestamp();
+		data.message = data.message.replace(/\<timestamp([^\>]+|)\>(\s?)/i, ts + " ");
+		
+		if (data.message.contains(": ") && !data.html)
+		{
+			var name = data.message.split(": ")[0];
+			var message = data.message.substr(data.message.indexOf(": ") + 2);
+			var toPrint = "";
+			
+			if (name === "Welcome Message")
+			{
+				toPrint = "<span class='chat-welcome'>%1 <b>%2:</b></span> %3".args(ts, name, message);
+			}
+			else if (name === "~~Server~~")
+			{
+				toPrint = "<span class='chat-server'>%1 <b>%2:</b></span> %3".args(ts, name, message);
+			}
+			else if (userId(name) === -1)
+			{
+				toPrint = "<span class='chat-script'>%1 <b>%2:</b></span> %3".args(ts, name, message);
+			}
+			else
+			{
+				toPrint = "<span class='chat-player' style='color:%4;'>%1 <b>%2:</b></span> %3".args(ts, name, message, "red");
+			}
+			
+			print(toPrint, data.channel);
+		}
+		else
+		{
+			var before = "";
+			var after = "";
+			var before2 = "";
+			var after2 = "";
+			
+			if (data.message.startsWith("***"))
+			{
+				before = "<span class='chat-action'>";
+				after = "</span>";
+				before2 = "<b>";
+				after2 = "</b>";
+			}
+			else if (data.message.startsWith("\u00BB\u00BB\u00BB"))
+			{
+				before = "<span class='chat-border'>";
+				after = "</span>";
+				before2 = "<b>";
+				after2 = "</b>";
+			}
+			
+			print(before + (data.html ? data.message : (data.message === "" ? "" : ts + " " + before2 + escapeHTML(data.message) + after2)) + after, data.channel);
+		}
+	},
+	"channelplayers": function(data)
+	{
+		data = JSON.parse(data);
+		
+		setChannelUsers(data.channel, data.players);
+		cache.channelUsers[data.channel] = data.players;
+	},
+	"join": function(data)
+	{
+		var channel = data.split("|")[0];
+		var user = parseInt(data.split("|")[1]);
+		
+		if (user === cache.info.id)
+		{
+			joinedChannel(channel);
+		}
+		
+		addChannelUser(channel, user);
+	},
+	"leave": function(data)
+	{
+		var channel = data.split("|")[0];
+		var user = parseInt(data.split("|")[1]);
+		
+		if (user === cache.info.id)
+		{
+			unjoinedChannel(channel);
+		}
+		
+		removeChannelUser(channel, user);
 	}
 };
 
@@ -197,4 +310,14 @@ function clientSwitchTo(layer, dir)
 		var o = (dir === "left" ? "right" : (dir === "up" ? "down" : (dir === "right" ? "left" : "up")));
 		$(".client-container > div:visible").hide("slide", { "direction": o }, function() { $(layer).show("slide", { "direction": dir }); });
 	}
+}
+
+function userId(name)
+{
+	return cache.usersByName[name];
+}
+
+function userName(id)
+{
+	return cache.usersById[name];
 }

@@ -404,19 +404,6 @@ function classElement(type, className)
 	return ret;
 }
 
-function malert(title, text)
-{
-	var modal = document.createElement("div");
-	modal.className = "modal fade";
-	modal.tabindex = "-1";
-	modal.role = "dialog";
-	modal["aria-hidden"] = true;
-	
-	modal.innerHTML = "<div class='modal-dialog'><div class='modal-content'><div class='modal-header'><h4 class='modal-title'>" + escapeHTMLQuotes(title) + "</h4></div><div class='modal-body'>" + escapeHTMLQuotes(text) + "</div><div class='modal-footer'><button type='button' class='btn btn-primary' data-dismiss='modal'>OK</button></div></div></div>";
-	
-	$(modal).modal();
-}
-
 function utf8_encode(argString) {
 	//	discuss at: http://phpjs.org/functions/utf8_encode/
 	// original by: Webtoolkit.info (http://www.webtoolkit.info/)
