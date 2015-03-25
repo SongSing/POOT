@@ -16,6 +16,7 @@
 		<script src="js/utilities.js"></script>
 		<script src="js/relay.js"></script>
 		<script src="js/client.js"></script>
+		<script src="js/channels.js"></script>
 	</head>
 	<body>
 		<div class="client-wrapper">
@@ -27,13 +28,30 @@
 					<h1 id="serverName"></h1>
 					<div id="serverDescription"></div>
 					<input type="text" class="form-control si" id="serverInput-name" placeholder="Name"/>
+					<input type="password" class="form-control si" id="serverInput-pass" placeholder="Password"/>
 					<input type="text" class="form-control si" id="serverInput-color" placeholder="Color" />
 					<input type="text" class="form-control si" id="serverInput-ip" placeholder="Advanced Connection" />
 					<button class="btn btn-lg btn-danger" id="serverInput-back">Back</btn>
 					<button class="btn btn-lg btn-primary" id="serverInput-connect">Connect</btn>
 				</div>
 				<div class="client-container">
-				
+					<span class="client-header">
+						<span class="glyphicon glyphicon-user nav-users" aria-hidden="true"></span>
+						<span class="nav-header">poot</span>
+						<span class="glyphicon glyphicon-menu-hamburger nav-channels" aria-hidden="true"></span>
+					</span>
+					<div class="client-chat">
+						<!-- widgets added here through js since multiple -->
+					</div>
+					<div class="client-users">
+						<!-- widgets added here through js since multiple -->
+					</div>
+					<div class="client-channels">
+						<div class="client-channels-header">My Channels</div>
+						<ul id="client-channels-myChannels"></ul>
+						<div class="client-channels-header">All Channels</div>
+						<ul id="client-channels-allChannels"></ul>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -27,7 +27,7 @@ html, body
 	overflow:hidden;
 }
 
-.client-content > div
+.client-content > div, .client-container > div
 {
 	display:none;
 	position:absolute;
@@ -37,9 +37,18 @@ html, body
 	bottom:0px;
 }
 
+.client-container > div
+{
+	top:48px;
+}
+
 .serverList-container
 {
 	background: rgba(0, 0, 0, 0);
+}
+
+.client-channels, .serverList-container
+{
 	overflow-y: scroll; /* has to be scroll, not auto */
 	-webkit-overflow-scrolling: touch;
 }
@@ -85,10 +94,10 @@ html, body
 {
 	position:absolute;
 	top:0px;
-	left:72px;
-	right:72px;
-	height:48px;
-	line-height:48px;
+	left:0px;
+	right:0px;
+	height:32px;
+	line-height:32px;
 	font-size:18px;
 	font-weight:bold;
 	padding:0px;
@@ -98,13 +107,37 @@ html, body
 	overflow:auto;
 }
 
+#serverInput-connect
+{
+	position:absolute;
+	bottom:0px;
+	right:0px;
+	height:48px;
+	margin:0px;
+	border-radius:0px;
+	width:50%;
+	font-size:16px;
+}
+
+#serverInput-back
+{
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	height:48px;
+	margin:0px;
+	border-radius:0px;
+	width:50%;
+	font-size:16px;
+}
+
 #serverDescription
 {
 	position:absolute;
-	top:48px;
+	top:32px;
 	left:0px;
 	right:0px;
-	bottom:114px;
+	bottom:200px;
 	background-color:rgba(255,255,255,0.9);
 	overflow-y: scroll; /* has to be scroll, not auto */
 	-webkit-overflow-scrolling: touch;
@@ -133,39 +166,95 @@ html, body
 
 #serverInput-name
 {
-	bottom:76px;
+	bottom:162px;
+}
+
+#serverInput-pass
+{
+	bottom:124px;
 }
 
 #serverInput-color
 {
-	bottom:38px;
+	bottom:86px;
 }
 
 #serverInput-ip
 {
-	bottom:0px;
+	bottom:48px;
 }
 
-#serverInput-connect
+.client-header
 {
-	position:absolute;
-	top:0px;
-	right:0px;
+	background: #222222;
+	color:white;
+	clear:both;
+	text-align:center;
+	font-size:24px;
 	height:48px;
-	margin:0px;
-	border-radius:0px;
-	width:96px;
-	font-size:16px;
-}
-
-#serverInput-back
-{
+	line-height:48px;
 	position:absolute;
 	top:0px;
 	left:0px;
-	height:48px;
+	right:0px;
+}
+
+.nav-users
+{
+	position:absolute;
+	left:12px;
+	top:12px;
+	cursor:pointer;
+}
+
+.nav-channels
+{
+	position:absolute;
+	right:12px;
+	top:12px;
+	cursor:pointer;
+}
+
+.nav-header
+{
+	padding:12px;
+}
+
+.client-channels
+{
+	background:#444444;
+	color:white;
+}
+
+.client-channels-header
+{
+	border:1px solid #111111;
+	border-left:0px;
+	border-right:0px;
+	background-color:#555555;
+	padding:8px 6px;
+	font-weight:bold;
+}
+
+#client-channels-myChannels, #client-channels-allChannels
+{
+	list-style:none;
+	box-sizing:border-box;
+	padding:0px;
 	margin:0px;
-	border-radius:0px;
-	width:96px;
-	font-size:16px;
+	background:transparent;
+}
+
+.channelListItem
+{
+	padding:6px 6px;
+	border:1px solid #333333;
+	border-left:0px;
+	border-right:0px;
+	cursor:pointer;
+}
+
+.channelListItem:hover
+{
+	background-color:rgba(255,255,255,0.05);
 }

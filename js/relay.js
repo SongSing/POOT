@@ -46,14 +46,8 @@ function Relay(ip, openfn, messagefn, closefn, errorfn)
 
 Relay.prototype.sendRaw = function(raw)
 {
-	try
-	{
-		this.socket.send(raw);
-	}
-	catch (err)
-	{
-		console.log("Relay send error: " + err.toString());
-	}
+	//console.log("Sending: " + raw);
+	this.socket.send(raw);
 };
 
 Relay.prototype.command = Relay.prototype.send = function(cmd, data)
