@@ -153,7 +153,7 @@ function hidePms()
 }
 
 function printPm(msg, user)
-{\
+{
 	if (user === -1)
 	{
 		console.log("user -1");
