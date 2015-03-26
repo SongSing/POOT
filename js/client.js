@@ -23,6 +23,8 @@ function init()
 	
 	cache.chatItems = {};
 	cache.myChannels = [];
+	cache.pmChatItems = {};
+	cache.myPms = [];
 	cache.usersByName = {};
 	cache.usersById = {};
 	cache.channelUsers = {};
@@ -243,6 +245,23 @@ var commandHandlers =
 			print(before + (data.html ? data.message : (data.message === "" ? "" : ts + " " + before2 + escapeHTML(data.message) + after2)) + after, data.channel);
 		}
 	},
+	"pm": function(data)
+	{
+		var ts = timestamp();
+		data = JSON.parse(data);
+		var message = escapeHTML(data.message);
+		var src = data.src;
+		var name = userName(src);
+		
+		if (!cache.myPms.contains(src))
+		{
+			joinedPm(src);
+		}
+		
+		var toPrint = "<span class='chat-player' style='color:%4;'>%1 <b>%2:</b></span> %3".args(ts, name, message, user(src).color);
+		
+		printPm(toPrint, src);
+	},
 	"channelplayers": function(data)
 	{
 		data = JSON.parse(data);
@@ -357,7 +376,7 @@ function userId(name)
 
 function userName(id)
 {
-	return cache.usersById[name];
+	return cache.usersById[id];
 }
 
 function user(id)

@@ -266,7 +266,7 @@ html, body
 	font-weight:bold;
 }
 
-#client-channels-myChannels, #client-channels-allChannels
+#client-channels-myChannels, #client-channels-allChannels, #client-channels-myPms
 {
 	list-style:none;
 	box-sizing:border-box;
@@ -275,7 +275,7 @@ html, body
 	background:transparent;
 }
 
-.channelListItem, .myChannelItem
+.channelListItem, .myChannelItem, .myPmItem
 {
 	position:relative;
 	padding:6px 6px;
@@ -285,12 +285,12 @@ html, body
 	cursor:pointer;
 }
 
-.channelListItem:hover, .myChannelItem:hover
+.channelListItem:hover, .myChannelItem:hover, .myPmItem:hover
 {
 	background-color:rgba(255,255,255,0.05);
 }
 
-.myChannelItem-close
+.myChannelItem-close, .myPmItem-close
 {
 	background-color:#AA0000;
 	position:absolute;
@@ -303,12 +303,12 @@ html, body
 	text-align:center;
 }
 
-.myChannelItem-close:hover
+.myChannelItem-close:hover, .myPmItem-close:hover
 {
 	background-color:#BB0000;
 }
 
-.chatItem-container
+.chatItem-container, .pmItem-container
 {
 	width:100%;
 	height:100%;
@@ -316,7 +316,7 @@ html, body
 	padding:0;
 }
 
-.chatItem-chat
+.chatItem-chat, .pmItem-chat
 {
 	position:absolute;
 	left:0px;
@@ -327,7 +327,7 @@ html, body
 	padding:4px;
 }
 
-.chatItem-text
+.chatItem-text, .pmItem-text
 {
 	position:absolute;
 	bottom:0px;
@@ -336,7 +336,7 @@ html, body
 	height:36px;
 }
 
-.chatItem-send
+.chatItem-send, .pmItem-send
 {
 	position:absolute;
 	bottom:0px;
@@ -346,7 +346,7 @@ html, body
 	border-radius:0px;
 }
 
-.chatItem-chat > span:last-of-type
+.chatItem-chat > span:last-of-type, .pmItem-chat > span:last-of-type
 {
 	padding-bottom:12px;
 }

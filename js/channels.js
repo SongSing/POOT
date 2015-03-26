@@ -11,7 +11,7 @@ function createChannelsFromJSON(data)
 		{
 			cache.channelsById[x] = data[x];
 			cache.channelsByName[data[x]] = x;
-			items.push(channelItem(data[x], x, "channelListItem"));
+			items.push(channelItem(data[x], x, "channelListItem", chanFn(x)));
 		}
 	}
 	
@@ -28,7 +28,7 @@ function createChannel(name, id)
 {	
 	cache.channelsById[id] = name;
 	cache.channelsByName[name] = id;
-	var item = channelItem(name, id, "channelListItem");
+	var item = channelItem(name, id, "channelListItem", chanFn(id));
 	
 	var names = valuesOf(cache.channelsById);
 	names.push(name);
@@ -120,7 +120,7 @@ function joinedChannel(id)
 		return;
 	}
 	
-	var item = channelItem(channelName(id), id, "myChannelItem");
+	var item = channelItem(channelName(id), id, "myChannelItem", chanFn(id));
 	
 	var close = document.createElement("div");
 	close.className = "myChannelItem-close";
@@ -168,12 +168,28 @@ function switchToChannel(id)
 		return;
 	}
 
-	$(".chatItem-container").hide();
+	hideChannels();
+	hidePms();
+	
 	$("#chatItem-container" + id).show();
 	$(".nav-header").html(escapeHTML(channelName(id)));
 }
 
-function channelItem(name, id, classBase)
+function hideChannels()
+{
+	$(".chatItem-container").hide();
+}
+
+function chanFn(id)
+{
+	return function()
+	{
+		switchToChannel(id);
+		clientSwitchTo(".client-chat");
+	}
+}
+
+function channelItem(name, id, classBase, fn)
 {	
 	var d = document.createElement("li");
 	d.className = classBase;
@@ -182,11 +198,7 @@ function channelItem(name, id, classBase)
 	d.cid = id;
 	d.cname = name;
 	
-	$(d).click(function()
-	{
-		switchToChannel(id);
-		clientSwitchTo(".client-chat");
-	});
+	$(d).click(fn);
 	
 	return d;
 }
