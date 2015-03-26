@@ -77,7 +77,7 @@ html, body
 	background: rgba(0, 0, 0, 0);
 }
 
-.client-channels, .serverList-container, .chatItem-chat
+.client-channels, .serverList-container, .chatItem-chat, .client-users
 {
 	overflow-y: scroll; /* has to be scroll, not auto */
 	-webkit-overflow-scrolling: touch;
@@ -256,6 +256,11 @@ html, body
 	color:white;
 }
 
+.client-users
+{
+	background:rgba(255,255,255,0.5);
+}
+
 .client-channels-header
 {
 	border:1px solid #111111;
@@ -349,4 +354,26 @@ html, body
 .chatItem-chat > span:last-of-type, .pmItem-chat > span:last-of-type
 {
 	padding-bottom:12px;
+}
+
+.userList
+{
+	background-color:white;
+}
+
+.userItem
+{
+	border-bottom:1px solid #aaaaaa;
+	padding:8px 8px;
+	cursor:pointer;
+}
+
+.userItem:hover
+{
+	background-color:#efefef;
+}
+
+.userItem:active
+{
+	background-color:#cccccc;
 }

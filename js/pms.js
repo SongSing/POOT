@@ -142,6 +142,7 @@ function switchToPm(id)
 	
 	hideChannels();
 	hidePms();
+	hideUserLists();
 	
 	scrollToBottom($("#pmItem-container" + id).get(0));
 	$("#pmItem-container" + id).show();

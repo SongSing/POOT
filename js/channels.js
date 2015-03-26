@@ -56,9 +56,40 @@ function removeChannel(id)
 	delete cache.channelUsers[id];
 }
 
-function setChannelUsers(channel, users)
+function setChannelUsers(channel, users) // users is array of ids
 {
 	cache.channelUsers[channel] = users;
+	
+	var l = $("#userList" + channel);
+	
+	if (l.get(0))
+	{
+		fillUserList(channel, users);
+	}
+	else
+	{
+		cache.waitingOnUsers.push(channel);
+	}
+}
+
+function fillUserList(channel, users)
+{
+	var l = $("#userList" + channel);
+	var names = [];
+	l.empty();
+	
+	for (var i = 0; i < users.length; i++)
+	{
+		names.push(userName(users[i]));
+	}
+	
+	names.alphabetize();
+	
+	for (i = 0; i < names.length; i++)
+	{
+		var item = userItem(userId(names[i]), channel);
+		l.append(item);
+	}
 }
 
 function addChannelUser(channel, user)
@@ -70,7 +101,31 @@ function addChannelUser(channel, user)
 	
 	cache.channelUsers[channel].push(user);
 	
-	// make item
+	var item = userItem(user, channel);
+	var name = userName(user);
+	var ids = valuesOf(cache.channelUsers[channel]);
+	var names = [];
+	
+	for (var i = 0; i < ids.length; i++)
+	{
+		names.push(userName(ids[i]));
+	}
+	
+	names.alphabetize();
+	names.push(name);
+	
+	var i = names.indexOf(name);
+	
+	var l = $("#userList" + channel);
+	
+	if (i === 0)
+	{
+		l.prepend(item);
+	}
+	else
+	{
+		$("#userItem" + userId(names[i - 1]) + "-" + channel).after(item);
+	}
 }
 
 function removeChannelUser(channel, user)
@@ -83,7 +138,7 @@ function removeChannelUser(channel, user)
 	
 	cache.channelUsers[channel].remove(user);
 	
-	// remove item
+	$("#userItem" + user + "-" + channel).get(0).delete();
 }
 
 function channelName(id)
@@ -114,6 +169,7 @@ function unjoinChannel(id)
 
 function joinedChannel(id)
 {
+	id = parseInt(id);
 	if (cache.myChannels.contains(id))
 	{
 		switchToChannel(id);
@@ -140,6 +196,17 @@ function joinedChannel(id)
 	var c = new chatItem(id);
 	$(".client-chat").append(c.container);
 	cache.chatItems[id] = c;
+	
+	var userList = document.createElement("div");
+	userList.className = "userList";
+	userList.id = "userList" + id;
+	$(".client-users").append(userList);
+	
+	if (cache.waitingOnUsers.contains(id))
+	{
+		cache.waitingOnUsers.remove(id);
+		fillUserList(id, cache.channelUsers[id]);
+	}
 	
 	switchToChannel(id);
 }
@@ -170,15 +237,22 @@ function switchToChannel(id)
 
 	hideChannels();
 	hidePms();
+	hideUserLists();
 	
 	scrollToBottom($("#chatItem-container" + id).get(0));
 	$("#chatItem-container" + id).show();
+	$("#userList" + id).show();
 	$(".nav-header").html(escapeHTML(channelName(id)));
 }
 
 function hideChannels()
 {
 	$(".chatItem-container").hide();
+}
+
+function hideUserLists()
+{
+	$(".userList").hide();
 }
 
 function chanFn(id)
@@ -260,6 +334,28 @@ function chatItem(id)
 	this.chat = chat;
 	this.text = text;
 	this.send = send;
+}
+
+function currentChat()
+{
+	return $(".client-chat > div:visible").get(0);
+}
+
+function userItem(id, cid)
+{
+	var ret = document.createElement("div");
+	ret.innerHTML = escapeHTML(userName(id));
+	$(ret).css({ "color": user(id).color, "font-weight": "bold" });
+	ret.className = "userItem userItem" + id; // can eliminate all at once if need be by using the class since they can be in multiple channels
+	ret.id = "userItem" + id + "-" + cid;
+	
+	$(ret).click(function()
+	{
+		joinedPm(id);
+		clientSwitchTo(".client-chat");
+	});
+	
+	return ret;
 }
 
 function print(msg, channel)

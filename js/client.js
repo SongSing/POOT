@@ -21,6 +21,17 @@ function init()
 		}
 	});
 	
+	$(".nav-users").click(function() {
+		if ($(".client-users").is(":visible"))
+		{
+			clientSwitchTo(".client-chat");
+		}
+		else
+		{
+			clientSwitchTo(".client-users");
+		}
+	});
+	
 	cache.chatItems = {};
 	cache.myChannels = [];
 	cache.pmChatItems = {};
@@ -29,6 +40,9 @@ function init()
 	cache.usersById = {};
 	cache.channelUsers = {};
 	cache.users = {};
+	cache.myInfoReceived = false;
+	cache.myAdded = false;
+	cache.waitingOnUsers = [];
 }
 
 function connectToServer()
@@ -172,6 +186,9 @@ var commandHandlers =
 		
 		clientSwitchTo(".client-chat");
 		switchTo(".client-container");
+		
+		cache.usersById[cache.info.id] = cache.name;
+		cache.usersByName[cache.name] = cache.info.id;
 	},
 	"channels": function(data)
 	{
@@ -279,7 +296,10 @@ var commandHandlers =
 			joinedChannel(channel);
 		}
 		
-		addChannelUser(channel, user);
+		if (user !== cache.info.id || cache.myInfoReceived)
+		{
+			addChannelUser(channel, user);
+		}
 	},
 	"leave": function(data)
 	{
@@ -296,12 +316,16 @@ var commandHandlers =
 	"players": function(data)
 	{
 		var updates = JSON.parse(data);
-		var first = (cache.users === {});
 		
 		for (var x in updates)
 		{
 			if (updates.hasOwnProperty(x))
 			{
+				if (x == cache.info.id)
+				{
+					cache.myInfoReceived = true;
+				}
+				
 				cache.usersById[x] = updates[x].name;
 				cache.usersByName[updates[x].name] = x;
 				
@@ -316,8 +340,9 @@ var commandHandlers =
 			}
 		}
 		
-		if (first)
+		if (cache.myInfoReceived && !cache.myAdded)
 		{
+			cache.myAdded = true;
 			for (var i = 0; i < cache.myChannels.length; i++)
 			{
 				addChannelUser(cache.myChannels[i], cache.info.id);
