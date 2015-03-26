@@ -157,7 +157,7 @@ var commandHandlers =
 			return md5(md5(pass) + salt);
 		};
 		
-		var pass = $("#serverInfo-pass").get(0).value;
+		var pass = $("#serverInput-pass").get(0).value;
 		
 		if (pass)
 		{
