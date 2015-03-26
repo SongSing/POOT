@@ -239,8 +239,8 @@ function switchToChannel(id)
 	hidePms();
 	hideUserLists();
 	
-	scrollToBottom($("#chatItem-container" + id).get(0));
 	$("#chatItem-container" + id).show();
+	scrollToBottom($("#chatItem-chat" + id).get(0));
 	$("#userList" + id).show();
 	$(".nav-header").html(escapeHTML(channelName(id)));
 }
