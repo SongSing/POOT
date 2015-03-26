@@ -324,6 +324,21 @@ function escapeHTMLQuotes(str) // from po
 	return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+function valuesOf(obj)
+{
+	var ret = [];
+	
+	for (var x in obj)
+	{
+		if (obj.hasOwnProperty(x))
+		{
+			ret.push(obj[x]);
+		}
+	}
+	
+	return ret;
+}
+
 function fixPictures(str)
 {
 	return str;

@@ -277,6 +277,7 @@ html, body
 
 .channelListItem, .myChannelItem
 {
+	position:relative;
 	padding:6px 6px;
 	border:1px solid #333333;
 	border-left:0px;
@@ -287,6 +288,24 @@ html, body
 .channelListItem:hover, .myChannelItem:hover
 {
 	background-color:rgba(255,255,255,0.05);
+}
+
+.myChannelItem-close
+{
+	background-color:#AA0000;
+	position:absolute;
+	right:0px;
+	top:0px;
+	bottom:0px;
+	padding:6px 6px;
+	width:20%;
+	min-width:64px;
+	text-align:center;
+}
+
+.myChannelItem-close:hover
+{
+	background-color:#BB0000;
 }
 
 .chatItem-container
@@ -329,5 +348,5 @@ html, body
 
 .chatItem-chat > span:last-of-type
 {
-	padding-bottom:8px;
+	padding-bottom:12px;
 }

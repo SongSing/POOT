@@ -25,13 +25,27 @@ function createChannelsFromJSON(data)
 }
 
 function createChannel(name, id)
-{
-	// need to do alphabet
-	
+{	
 	cache.channelsById[id] = name;
 	cache.channelsByName[name] = id;
+	var item = channelItem(name, id, "channelListItem");
 	
-	$("#client-channels-allChannels").append(channelItem(name, id, "channelListItem"));
+	var names = valuesOf(cache.channelsById);
+	names.push(name);
+	names = names.alphabetize();
+	
+	var i = names.indexOf(name);
+	
+	var l = $("#client-channels-allChannels");
+	
+	if (i === 0)
+	{
+		l.prepend(item);
+	}
+	else
+	{
+		$("#channelListItem" + channelId(names[i - 1])).after(item);
+	}
 }
 
 function removeChannel(id)
@@ -106,7 +120,21 @@ function joinedChannel(id)
 		return;
 	}
 	
-	$("#client-channels-myChannels").append(channelItem(channelName(id), id, "myChannelItem"));
+	var item = channelItem(channelName(id), id, "myChannelItem");
+	
+	var close = document.createElement("div");
+	close.className = "myChannelItem-close";
+	close.innerHTML = "Leave";
+	
+	$(close).click(function(e)
+	{
+		e.stopPropagation(); // so doesnt go through
+		unjoinChannel(id);
+	});
+	
+	$(item).append(close);
+	
+	$("#client-channels-myChannels").append(item);
 	cache.myChannels.push(id);
 	
 	var c = new chatItem(id);
