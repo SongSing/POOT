@@ -146,7 +146,7 @@ function switchToPm(id)
 	
 	$("#pmItem-container" + id).show();
 	scrollToBottom($("#pmItem-chat" + id).get(0));
-	$(".nav-header").html(escapeHTML(userName(id)) + "[PM]");
+	$(".nav-header").html(escapeHTML(userName(id)) + "&nbsp;[PM]");
 }
 
 function hidePms()
