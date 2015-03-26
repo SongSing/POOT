@@ -166,7 +166,7 @@ function channelItem(name, id, classBase)
 function chatItem(id)
 {
 	this.id = id;
-	self = this;
+	var self = this;
 	
 	var container = document.createElement("div");
 	container.className = "chatItem-container";
@@ -202,6 +202,7 @@ function chatItem(id)
 	this.appendChat = function(content)
 	{
 		$(self.chat).append(content + "<br />");
+		scrollToBottom(self.chat);
 	};
 	
 	$(send).click(self.sendText);

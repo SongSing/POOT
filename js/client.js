@@ -1,5 +1,6 @@
 var relay;
 var cache = {};
+var namecolorlist = ['#5811b1', '#399bcd', '#0474bb', '#f8760d', '#a00c9e', '#0d762b', '#5f4c00', '#9a4f6d', '#d0990f', '#1b1390', '#028678', '#0324b1'];
 
 function init()
 {
@@ -25,6 +26,7 @@ function init()
 	cache.usersByName = {};
 	cache.usersById = {};
 	cache.channelUsers = {};
+	cache.users = {};
 }
 
 function connectToServer()
@@ -211,7 +213,7 @@ var commandHandlers =
 			}
 			else
 			{
-				toPrint = "<span class='chat-player' style='color:%4;'>%1 <b>%2:</b></span> %3".args(ts, name, message, "red");
+				toPrint = "<span class='chat-player' style='color:%4;'>%1 <b>%2:</b></span> %3".args(ts, name, message, user(userId(name)).color);
 			}
 			
 			print(toPrint, data.channel);
@@ -271,6 +273,37 @@ var commandHandlers =
 		}
 		
 		removeChannelUser(channel, user);
+	},
+	"players": function(data)
+	{
+		var updates = JSON.parse(data);
+		var first = (cache.users === {});
+		
+		for (var x in updates)
+		{
+			if (updates.hasOwnProperty(x))
+			{
+				cache.usersById[x] = updates[x].name;
+				cache.usersByName[updates[x].name] = x;
+				
+				cache.users[x] = updates[x];
+				
+				if (!cache.users[x].color)
+				{
+					cache.users[x].color = namecolorlist[parseInt(x) % namecolorlist.length];
+				}
+				
+				var items = $(".channel-player-item-" + x);
+			}
+		}
+		
+		if (first)
+		{
+			for (var i = 0; i < cache.myChannels.length; i++)
+			{
+				addChannelUser(cache.myChannels[i], cache.info.id);
+			}
+		}
 	}
 };
 
@@ -314,10 +347,20 @@ function clientSwitchTo(layer, dir)
 
 function userId(name)
 {
+	if (!cache.usersByName.hasOwnProperty(name))
+	{
+		return -1;
+	}
+	
 	return cache.usersByName[name];
 }
 
 function userName(id)
 {
 	return cache.usersById[name];
+}
+
+function user(id)
+{
+	return cache.users[id];
 }

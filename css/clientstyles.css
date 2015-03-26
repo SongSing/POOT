@@ -326,3 +326,8 @@ html, body
 	width:96px;
 	border-radius:0px;
 }
+
+.chatItem-chat > span:last-of-type
+{
+	padding-bottom:8px;
+}
