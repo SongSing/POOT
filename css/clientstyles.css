@@ -75,18 +75,20 @@ html, body
 #loading
 {
 	background:rgba(255,255,255,0.8);
-	border:1px solid #aaaaaa;
-	border-bottom-width:2px;
-	padding:8px;
-	border-radius:6px;
+	width:100%;
+	height:100%;
+	padding:0px;
+	margin:0px;
+	display:table;
 	text-align:center;
-	width:128px;
-	height:64px;
-	line-height:48px;
-	font-size:24px;
-	position:fixed;
-	left:calc(50% - 24px);
-	top:calc(50% - 32px);
+}
+
+#loading-label
+{
+	display:table-cell;
+	vertical-align:middle;
+	font-size:48px;
+	font-style:italic;
 }
 
 .serverList-container
