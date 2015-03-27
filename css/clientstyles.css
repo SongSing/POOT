@@ -72,6 +72,23 @@ html, body
 	top:48px;
 }
 
+#loading
+{
+	background:rgba(255,255,255,0.8);
+	border:1px solid #aaaaaa;
+	border-bottom-width:2px;
+	padding:8px;
+	border-radius:6px;
+	text-align:center;
+	width:128px;
+	height:64px;
+	line-height:48px;
+	font-size:24px;
+	position:fixed;
+	left:calc(50% - 24px);
+	top:calc(50% - 32px);
+}
+
 .serverList-container
 {
 	background: rgba(0, 0, 0, 0);

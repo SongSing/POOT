@@ -149,6 +149,8 @@ var commandHandlers =
 			items.push(item);
 		}
 		
+		$("#loading").hide();
+		
 		for (var i = 0; i < items.length; i++)
 		{
 			$(".serverList-container").append(items[i]);
