@@ -51,6 +51,7 @@ function createChannel(name, id)
 function removeChannel(id)
 {	
 	unjoinedChannel(id);
+	$("#channelListItem" + id).get(0).delete();
 	delete cache.channelsByName[channelName(id)];
 	delete cache.channelsById[id];
 	delete cache.channelUsers[id];
@@ -316,7 +317,21 @@ function chatItem(id)
 	
 	this.appendChat = function(content)
 	{
-		$(self.chat).append(content + "<br />");
+		var s = document.createElement("span");
+		$(s).html(content);
+		s.className = "printed-message";
+		
+		$(self.chat).append(s);
+		$(self.chat).append("<br />");
+		
+		var len = $(self.chat.id + " > .printed-message").length;
+		var max = 200;
+		
+		if (len > max)
+		{
+			$(self.chat).find(".printed-message").first().delete(); // so not 8938923892892839283892 spans
+		}
+		
 		scrollToBottom(self.chat);
 	};
 	

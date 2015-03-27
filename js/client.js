@@ -204,7 +204,7 @@ var commandHandlers =
 	},
 	"removechannel": function(data) // id
 	{
-		removeChannel(data);
+		removeChannel(parseInt(data));
 	},
 	"chat": function(data)
 	{
@@ -303,10 +303,10 @@ var commandHandlers =
 	},
 	"leave": function(data)
 	{
-		var channel = data.split("|")[0];
+		var channel = parseInt(data.split("|")[0]);
 		var user = parseInt(data.split("|")[1]);
 		
-		if (user === cache.info.id)
+		if (user == cache.info.id)
 		{
 			unjoinedChannel(channel);
 		}
