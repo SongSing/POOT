@@ -338,6 +338,7 @@ html, body
 	height:100%;
 	margin:0;
 	padding:0;
+	background-color:white;
 }
 
 .chatItem-chat, .pmItem-chat
@@ -349,6 +350,7 @@ html, body
 	bottom:36px;
 	background-color:white;
 	padding:4px;
+	word-wrap: break-word;
 }
 
 .chatItem-text, .pmItem-text
