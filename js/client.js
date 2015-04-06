@@ -214,6 +214,11 @@ var commandHandlers =
 		var ts = timestamp();
 		data.message = data.message.replace(/\<timestamp([^\>]+|)\>(\s?)/i, ts + " ");
 		
+		if (!data.html)
+		{
+			data.message = fixLinks(data.message);
+		}
+		
 		if (data.message.contains(": ") && !data.html)
 		{
 			var name = data.message.split(": ")[0];

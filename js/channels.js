@@ -241,9 +241,9 @@ function switchToChannel(id)
 	hideUserLists();
 	
 	$("#chatItem-container" + id).show();
-	scrollToBottom($("#chatItem-chat" + id).get(0));
 	$("#userList" + id).show();
 	$(".nav-header").html(escapeHTML(channelName(id)));
+	cache.chatItems[id].updateScroll();
 }
 
 function hideChannels()
@@ -304,6 +304,11 @@ function chatItem(id)
 	
 	$(container).append(chat).append(text).append(send);
 	
+	this.updateScroll = function()
+	{
+		scrollToBottom(self.chat);
+	};
+	
 	this.sendText = function()
 	{
 		if (!self.text.value)
@@ -332,7 +337,7 @@ function chatItem(id)
 			$(self.chat).find(".printed-message").first().delete(); // so not 8938923892892839283892 spans
 		}
 		
-		scrollToBottom(self.chat);
+		self.updateScroll();
 	};
 	
 	$(send).click(self.sendText);

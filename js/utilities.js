@@ -344,6 +344,11 @@ function fixPictures(str)
 	return str;
 }
 
+function fixLinks(str)
+{
+	return str.replace(/([a-zA-Z]+:\/\/|www\.)((?:(?!\s).)+)/ig, "<a href='$1$2' target='_blank'>$1$2</a>")
+}
+
 function storeVal(key, val)
 {
 	localStorage.setItem(key, val);
